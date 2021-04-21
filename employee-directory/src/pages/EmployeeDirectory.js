@@ -11,7 +11,7 @@ class EmployeeDirectory extends Component {
   state = {
     search: "",
     employees: [{}],
-    results: [{}],
+    filteredResults: [{}]
   };
   headings = [
     { name: "Image", width: "20%" },
@@ -23,11 +23,20 @@ class EmployeeDirectory extends Component {
   // When the component mounts, get a list of all available base breeds and update this.state.breeds
   componentDidMount() {
     API.getRandomUser()
-      .then((res) => this.setState({ employees: res.data.results }))
+      .then((res) => this.setState({ employees: res.data.results, filteredResults: res.data.results }))
       // .catch(err => console.log(err));
   }
   handleInputChange = event => {
-    this.setState({ search: event.target.value });
+    const updateValue = event.target.value
+    const filterList = this.state.employees.filter(employee => {
+      let value = Object.values(employee).join("").toLowerCase()
+      return value.indexOf(updateValue.toLowerCase()) !== -1
+    })
+
+
+
+
+    this.setState({ filteredResults: filterList });
   };
 
   // handleFormSubmit = event => {
@@ -49,13 +58,13 @@ class EmployeeDirectory extends Component {
           <h1 className="text-center">Search By Employee!</h1>
    
           <SearchForm
-            handleFormSubmit={this.handleFormSubmit}
+            // handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
-            names={this.state.names}
-            results={this.state.results}
+            // names={this.state.names}
+            // results={this.state.results}
           />
 
-          <EmployeeTable employees={this.state.employees} headings={this.headings} />
+          <EmployeeTable employees={this.state.filteredResults} headings={this.headings} />
         </Wrapper>
       </div>
     );
