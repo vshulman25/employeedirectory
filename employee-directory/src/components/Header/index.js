@@ -8,7 +8,7 @@ export default class Header extends React.Component {
     render() {
         return (
             <>
-                <h1> Employee Directory </h1>
+                <header> Employee Directory </header>
             </>
         )
     }

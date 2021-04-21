@@ -6,14 +6,14 @@ function SearchForm({handleInputChange}) {
   return (
     <form className="search">
       <div className="form-group">
-        <label htmlFor="search">Search by Name:</label>
+        <label htmlFor="search"> </label>
         <input
           onChange={e => handleInputChange(e)}
           name="name"
           list="names"
           type="search"
           className="form-control"
-          placeholder="Type in the name of an Employee to begin"
+          placeholder="Know who you're looking for? Try typing their name here..."
           id="search-by-name"
         />
       </div>

@@ -9,18 +9,17 @@ import EmployeeTable from "../components/EmployeeTable";
 
 class EmployeeDirectory extends Component {
   state = {
-    search: "",
+    order: "descend",
     employees: [{}],
     filteredResults: [{}]
   };
   headings = [
-    { name: "Image", width: "20%" },
-    { name: "Name", width: "20%" },
-    { name: "Phone", width: "20%" },
-    { name: "Email", width: "20%" },
-    { name: "DOB", width: "20%" }
+    { name: "Profile Picture", width: "25%" },
+    { name: "Name", width: "25%" },
+    { name: "Phone", width: "25%" },
+    { name: "Email", width: "25%" },
   ];
-  // When the component mounts, get a list of all available base breeds and update this.state.breeds
+
   componentDidMount() {
     API.getRandomUser()
       .then((res) => this.setState({ employees: res.data.results, filteredResults: res.data.results }))
@@ -39,32 +38,55 @@ class EmployeeDirectory extends Component {
     this.setState({ filteredResults: filterList });
   };
 
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-  //   API.getRandomUser(this.state.search)
-  //     .then(res => {
-  //       if (res.data.status === "error") {
-  //         throw new Error(res.data.results);
-  //       }
-  //       this.setState({ results: res.data.message, error: "" });
-  //     })
-  //     .catch(err => this.setState({ error: err.message }));
-  // };
+  sortEmployees = heading => {
+    if (this.state.order === "descend") {
+      this.setState({ order: "ascend" })
+    } else { this.setState({ order: "descend" }) }
+    const sortHeadings = (a, b) => {
+      if (this.state.order === "ascend"){
+      if (a[heading] === undefined) {
+        return 1;
+      } else if (b[heading] === undefined) {
+        return -1;
+      }
+      else if (heading === "name") {
+        return a[heading].first.localeCompare(b[heading].first);
+      } else {
+        return a[heading] - b[heading];
+      }} else { if (a[heading] === undefined) {
+        return 1;
+      } else if (b[heading] === undefined) {
+        return -1;
+      }
+      else if (heading === "name") {
+        return b[heading].first.localeCompare(a[heading].first);
+      } else {
+        return b[heading] - b[heading];
+      }
+      
+      }
+    }
+    const sortedEmployees = this.state.filteredResults.sort(sortHeadings)
+    this.setState({filteredResults: sortedEmployees})
+  }
+
+
   render() {
     return (
       <div>
         <Wrapper style={{ minHeight: "80%" }}>
           <Header />
-          <h1 className="text-center">Search By Employee!</h1>
-   
-          <SearchForm
-            // handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-            // names={this.state.names}
-            // results={this.state.results}
-          />
+          <h1 className="text-center"> Welcome, lets check out some employees! </h1>
+          <p className="text-center"> Use the search bar to look an employee up or select 'Name' to filter alphabetically </p>
 
-          <EmployeeTable employees={this.state.filteredResults} headings={this.headings} />
+          <SearchForm
+     
+            handleInputChange={this.handleInputChange}
+
+          />
+    
+
+          <EmployeeTable employees={this.state.filteredResults} headings={this.headings} sortEmployees={this.sortEmployees}/>
         </Wrapper>
       </div>
     );
