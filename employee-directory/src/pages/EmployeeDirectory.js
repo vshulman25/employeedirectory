@@ -10,10 +10,16 @@ import EmployeeTable from "../components/EmployeeTable";
 class EmployeeDirectory extends Component {
   state = {
     search: "",
-    employees: [],
-    results: [],
+    employees: [{}],
+    results: [{}],
   };
-
+  headings = [
+    { name: "Image", width: "20%" },
+    { name: "Name", width: "20%" },
+    { name: "Phone", width: "20%" },
+    { name: "Email", width: "20%" },
+    { name: "DOB", width: "20%" }
+  ];
   // When the component mounts, get a list of all available base breeds and update this.state.breeds
   componentDidMount() {
     API.getRandomUser()
@@ -24,17 +30,17 @@ class EmployeeDirectory extends Component {
     this.setState({ search: event.target.value });
   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    API.getRandomUser(this.state.search)
-      .then(res => {
-        if (res.data.status === "error") {
-          throw new Error(res.data.results);
-        }
-        this.setState({ results: res.data.message, error: "" });
-      })
-      .catch(err => this.setState({ error: err.message }));
-  };
+  // handleFormSubmit = event => {
+  //   event.preventDefault();
+  //   API.getRandomUser(this.state.search)
+  //     .then(res => {
+  //       if (res.data.status === "error") {
+  //         throw new Error(res.data.results);
+  //       }
+  //       this.setState({ results: res.data.message, error: "" });
+  //     })
+  //     .catch(err => this.setState({ error: err.message }));
+  // };
   render() {
     return (
       <div>
@@ -49,7 +55,7 @@ class EmployeeDirectory extends Component {
             results={this.state.results}
           />
 
-          <EmployeeTable employees={this.state.employees} />
+          <EmployeeTable employees={this.state.employees} headings={this.headings} />
         </Wrapper>
       </div>
     );

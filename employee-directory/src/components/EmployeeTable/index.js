@@ -1,24 +1,35 @@
 import EmployeeInfo from '../EmployeeInfo/index'
 import React from 'react'
 
-function EmployeeTable(props) {
+function EmployeeTable({ headings, employees, sortEmployees }) {
     return (
         <div>
             <table className="employeeTable">
+                <thead>
+                    <tr>
+                        {headings.map(({ name, width }) => {
+                            return (
+                                <th
+                                    key={name}
+                                    style={{ width }}
+                                    onClick={() => {
+                                        sortEmployees(name.toLowerCase());
+                                    }}
+                                >
+                                    {name}
+                                    <span className="pointer"></span>
+                                </th>
+                            );
+                        })}
 
-                <tbody>
-                    {props.employees.map((employees) => (
-                        <EmployeeInfo
-                        name={employees.name.first}
-                        email={employees.email}
-                        pic={employees.picture.medium}
-                        location={employees.location}
+
+                    </tr>
+                </thead>
+
+                < EmployeeInfo
+                    employees={employees} />
 
 
-                        />
-                    ))}
-
-                </tbody>
             </table>
         </div>
     )
