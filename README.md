@@ -18,5 +18,23 @@ User is be able to:
 
   * Filter the users by letters in employee names utilizing the search bar
 
+  * App page will update when refreshed
 
+App is deployed using GitHub Pages, live link is listed below with link to GitHub Repository.
 
+---
+
+## Links
+* [Live Link](http://vshulman25.github.io/employeedirectory)
+* [Repository](https://github.com/vshulman25/employeedirectory.git)
+
+---
+## Preview
+![EmployeeDirectory](employee-directory/public/emphome.png)
+![EmployeeDirectory](employee-directory/public/empsearch.png)
+![EmployeeDirectory](employee-directory/public/empdesc.png)
+
+---
+## Credits
+
+Developer - Victoria Shulman 
