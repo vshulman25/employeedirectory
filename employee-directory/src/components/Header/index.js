@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import API from '../../utils/API'
+import '../Header/style.css'
 
 export default class Header extends React.Component {
     componentDidMount() {
@@ -8,7 +9,7 @@ export default class Header extends React.Component {
     render() {
         return (
             <>
-                <header> Employee Directory </header>
+                <header > Employee Directory </header>
             </>
         )
     }
