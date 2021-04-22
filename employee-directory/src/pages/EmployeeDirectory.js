@@ -4,8 +4,7 @@ import Header from "../components/Header"
 import Wrapper from "../components/Wrapper"
 import SearchForm from "../components/SearchForm"
 import EmployeeTable from "../components/EmployeeTable";
-
-// header, search form, search results, wrapper, table 
+ 
 
 class EmployeeDirectory extends Component {
   state = {
@@ -23,7 +22,6 @@ class EmployeeDirectory extends Component {
   componentDidMount() {
     API.getRandomUser()
       .then((res) => this.setState({ employees: res.data.results, filteredResults: res.data.results }))
-    // .catch(err => console.log(err));
   }
   handleInputChange = event => {
     const updateValue = event.target.value
